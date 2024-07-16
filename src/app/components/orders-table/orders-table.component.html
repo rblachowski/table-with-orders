@@ -1,0 +1,59 @@
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Order ID</th>
+      <th>Side</th>
+      <th>Size</th>
+      <th>Open Time</th>
+      <th>Open Price</th>
+      <th>Swap</th>
+      <th>Profit</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <ng-container *ngFor="let group of groupedOrders | keyvalue">
+      <tr>
+        <td>
+          <button mat-button (click)="toggleGroup(group.key)">
+            {{ group.key }} ({{ group.value.orders.length }})
+          </button>
+        </td>
+        <td> {{group.value.id}} </td>
+        <td> {{group.value.side}}</td>
+        <td> {{group.value.size}} </td>
+        <td> {{group.value.openTime}} </td>
+        <td> {{group.value.openPrice / group.value.orders.length | number:'1.2-2'}} </td>
+        <td> {{group.value.swap}} </td>
+        <td> {{group.value.profit / group.value.orders.length | number:'1.2-2'}}</td>
+        <td>
+          <button mat-icon-button (click)="deleteGroup(group.key)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+      <ng-container *ngFor="let order of group.value.orders">
+        <tr *ngIf="group.value.expanded">
+          <td></td>
+          <td>{{order.id}}</td>
+          <td>{{order.side}}</td>
+          <td>{{order.size}}</td>
+          <td>{{order.openTime | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+          <td [ngStyle]="{'color': order.openPrice > 0 ? 'rgb(60, 193, 149)' : 'rgb(249, 76, 76)'}">
+            {{order.openPrice | number:'1.2-2'}}
+          </td>
+          <td>{{order.swap}}</td>
+          <td [ngStyle]="{'color': calculateProfit(order) > 0 ? 'rgb(60, 193, 149)' : 'rgb(249, 76, 76)'}">
+            {{calculateProfit(order) | number:'1.2-2'}}</td>
+          <td>
+            <button mat-icon-button (click)="deleteOrder(order.id, group.key)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </tbody>
+</table>

@@ -1,4 +1,62 @@
-/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/theming';
+@include mat-core();
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+$light-background: rgb(233, 237, 241);
+$light-text: rgb(14, 15, 26);
+$light-row-background: rgb(220, 225, 229);
+$light-row-hover-background: rgb(201, 209, 216);
+$profit-positive: rgb(60, 193, 149);
+$profit-negative: rgb(249, 76, 76);
+
+$light-primary: mat-palette($mat-indigo);
+$light-accent: mat-palette($mat-pink, A200, A100, A400);
+$light-theme: mat-light-theme($light-primary, $light-accent);
+
+$dark-background: rgb(42, 56, 71);
+$dark-text: rgb(198, 210, 219);
+$dark-row-background: rgba(14, 15, 26, .25);
+$dark-row-hover-background: rgba(53, 71, 89, .5);
+
+$dark-primary: mat-palette($mat-blue-grey);
+$dark-accent: mat-palette($mat-light-blue, A200, A100, A400);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent);
+
+.light-theme {
+  background-color: $light-background;
+  color: $light-text;
+
+  .mat-row {
+    background-color: $light-row-background;
+    &:hover {
+      background-color: $light-row-hover-background;
+    }
+  }
+
+  .profit-positive {
+    color: $profit-positive;
+  }
+
+  .profit-negative {
+    color: $profit-negative;
+  }
+}
+
+.dark-theme {
+  background-color: $dark-background;
+  color: $dark-text;
+
+  .mat-row {
+    background-color: $dark-row-background;
+    &:hover {
+      background-color: $dark-row-hover-background;
+    }
+  }
+
+  .profit-positive {
+    color: $profit-positive;
+  }
+
+  .profit-negative {
+    color: $profit-negative;
+  }
+}
